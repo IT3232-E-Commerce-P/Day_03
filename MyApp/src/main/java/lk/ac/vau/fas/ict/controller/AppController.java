@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,4 +98,16 @@ public class AppController {
     	}
     	return "Student not found!";
     }
+    
+    @DeleteMapping("/students/{id}")
+    public String deleteStudent(@PathVariable("id") String regNo) {
+    	for(Student student : students) {
+    		if(student.getRegNo().equals(regNo)) {
+    			students.remove(student);
+    			return "Student deleted successfully!";
+    		}
+    	}
+    	return "Student not found";
+    }
+    
 }
