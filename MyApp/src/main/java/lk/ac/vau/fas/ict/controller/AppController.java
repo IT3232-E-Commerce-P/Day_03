@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,12 @@ public class AppController {
 	
 	List<Student> students = new ArrayList<Student>();
 	
+	public AppController() {
+		students.add(Bob);
+	    	students.add(James);
+	    	students.add(Donald);
+		}
+		
     @GetMapping("/Student")
     public Student getStudent() {
     	return Bob;
@@ -33,6 +40,15 @@ public class AppController {
 		students.add(James);
 		students.add(Donald);
 		return students;
+	}
+	@GetMapping("/Students/{id}")
+	public Student getStudent(@PathVariable("id") String regNo) {
+		for(Student student:students) {
+			if(student.getRegNo().equals(regNo)) {
+				return student;
+			}
+		}
+		return null;
 	}
 }
 
