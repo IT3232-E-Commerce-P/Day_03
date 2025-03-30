@@ -3,7 +3,6 @@ package lk.ac.vau.fas.ict.controller;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,7 +98,7 @@ public class AppController {
     	return "Student not found!";
     }
     
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/Students/{id}")
     public String deleteStudent(@PathVariable("id") String regNo) {
     	for(Student student : students) {
     		if(student.getRegNo().equals(regNo)) {
@@ -108,6 +107,5 @@ public class AppController {
     		}
     	}
     	return "Student not found";
-    }
-    
+    }    
 }
