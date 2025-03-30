@@ -13,38 +13,49 @@ import lk.ac.vau.fas.ict.model.Student;
 @RestController
 @RequestMapping("/app")
 public class AppController {
-	@GetMapping("/home")
-	public String homeMessage() {
-		return "Welcome to Student Management System";
-	}
-	
-	Student Bob = new Student("2020ICT01","Bob Marely",25,"IT",3.3);
-	Student James = new Student("2020ICT02","James Bond",24,"IT",3.1);
-	Student Donald = new Student("2020ICT03","Donald Trump",25,"IT",3.2);
-	
-	List<Student> students = new ArrayList<Student>();
-	
 
-		
+    private List<Student> students = new ArrayList<>();
+
+    public AppController() {
+        students.add(new Student("2020ICT01", "Bob Marely", 23, "IT", 3.3));
+        students.add(new Student("2020ICT02", "James Bond", 24, "IT", 3.1));
+        students.add(new Student("2020ICT03", "Donald Trump", 25, "IT", 3.2));
+    }
+
+    @GetMapping("/home")
+    public String homeMessage() {
+        return "Welcome to Student Management System";
+    }
+
     @GetMapping("/Student")
     public Student getStudent() {
-    	return Bob;
+        return students.get(0);
     }
-	@GetMapping("/Students")
-	public List<Student> getStudents(){
-		students.add(Bob);
-		students.add(James);
-		students.add(Donald);
-		return students;
-	}
-	@GetMapping("/Students/{id}")
-	public Student getStudent(@PathVariable("id") String regNo) {
-		for(Student student:students) {
-			if(student.getRegNo().equals(regNo)) {
-				return student;
-			}
-		}
-		return null;
-	}
-}
 
+    @GetMapping("/Students")
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    @GetMapping("/Students/{id}")
+    public Student getStudent(@PathVariable("id") String regNo) {
+        for (Student student : students) {
+            if (student.getRegNo().equals(regNo)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    @GetMapping("/Students/age/{min}/{max}")
+    public List<Student> getStudentsByAgeRange(@PathVariable int min, @PathVariable int max) {
+        List<Student> filteredStudents = new ArrayList<>();
+        
+        for (Student student : students) {
+            if (student.getAge() >= min && student.getAge() <= max) {
+                filteredStudents.add(student);
+            }
+        }
+        return filteredStudents;
+    }
+}
