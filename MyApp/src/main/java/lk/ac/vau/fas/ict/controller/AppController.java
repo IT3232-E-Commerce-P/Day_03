@@ -24,11 +24,7 @@ public class AppController {
 	
 	List<Student> students = new ArrayList<Student>();
 	
-	public AppController() {
-		students.add(Bob);
-	    	students.add(James);
-	    	students.add(Donald);
-		}
+
 		
     @GetMapping("/Student")
     public Student getStudent() {
